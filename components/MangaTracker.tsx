@@ -127,8 +127,8 @@ const MangaTracker: React.FC<MangaTrackerProps> = ({
         </div>
       </div>
 
-      <div className="manga-card" style={{ marginTop: '2rem' }}>
-        <div className="stats-header" style={{ border: 'none', paddingBottom: 0, marginBottom: '1rem' }}>
+      <div className="manga-card manga-list-card">
+        <div className="stats-header manga-list-header">
           <h3>Minha Lista ({mangas.length})</h3>
         </div>
 
