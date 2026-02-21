@@ -4061,6 +4061,60 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
         padding: 2rem;
       }
 
+      .manga-header-card {
+        background: linear-gradient(120deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.04));
+      }
+
+      .manga-list-card {
+        margin-top: 2rem;
+      }
+
+      .manga-list-header {
+        border: none;
+        padding-bottom: 0;
+        margin-bottom: 1.25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.35rem;
+      }
+
+      .manga-list-subtitle {
+        margin: 0;
+        color: var(--text-muted);
+        font-size: 0.92rem;
+      }
+
+      .manga-overview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.25rem;
+      }
+
+      .manga-overview-chip {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        padding: 0.55rem 0.8rem;
+        min-width: 110px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+      }
+
+      .manga-overview-label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+      }
+
+      .manga-overview-chip strong {
+        font-size: 1.1rem;
+        color: var(--primary-color);
+      }
+
       .manga-add-section {
         margin-top: 1.5rem;
       }
@@ -4106,8 +4160,8 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
       }
 
       .manga-list {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 1rem;
       }
 
@@ -4117,15 +4171,18 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
         border-radius: 10px;
         padding: 1.25rem;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
+        align-items: stretch;
+        min-height: 150px;
+        gap: 1rem;
         transition: all 0.2s;
       }
 
       .manga-item:hover {
         background: rgba(255, 255, 255, 0.05);
         border-color: var(--primary-color);
-        transform: translateX(5px);
+        transform: translateY(-2px);
       }
 
       .manga-item.completed {
@@ -4152,20 +4209,68 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
         transition: color 0.2s;
       }
 
+      .manga-title-toggle {
+        cursor: pointer;
+      }
+
+      .manga-title-toggle:hover {
+        color: var(--primary-color);
+      }
+
+      .manga-meta-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+      }
+
       .manga-chapter-display {
-        font-size: 0.95rem;
+        font-size: 0.92rem;
         color: var(--text-muted);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 999px;
+        padding: 0.3rem 0.65rem;
       }
 
       .manga-chapter-display strong {
         color: var(--primary-color);
-        font-size: 1.1rem;
+        font-size: 1rem;
+      }
+
+      .manga-status-badge {
+        border-radius: 999px;
+        font-size: 0.78rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        padding: 0.32rem 0.65rem;
+        border: 1px solid transparent;
+      }
+
+      .manga-status-badge.reading {
+        color: var(--primary-color);
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .manga-status-badge.done {
+        color: var(--success);
+        border-color: rgba(74, 222, 128, 0.35);
+        background: rgba(74, 222, 128, 0.12);
       }
 
       .manga-controls {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.65rem;
         align-items: center;
+        justify-content: flex-end;
+        padding-top: 0.75rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
       }
 
       .manga-chapter-btn {
@@ -4236,6 +4341,7 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
         gap: 0.75rem;
         width: 100%;
         align-items: center;
+        flex-wrap: wrap;
       }
 
       .manga-edit-input {
@@ -4269,6 +4375,30 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
       .manga-edit-chapter:focus {
         outline: none;
         box-shadow: 0 0 0 2px var(--primary-glow);
+      }
+
+      @media (max-width: 768px) {
+        .manga-card {
+          padding: 1.25rem;
+        }
+
+        .manga-overview-chip {
+          flex: 1;
+          min-width: 90px;
+        }
+
+        .manga-input-title {
+          min-width: 100%;
+        }
+
+        .manga-input-chapter,
+        .manga-input-group .btn-primary {
+          width: 100%;
+        }
+
+        .manga-list {
+          grid-template-columns: 1fr;
+        }
       }
       
       /* Exam Tracker Styles */

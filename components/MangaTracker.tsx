@@ -9,11 +9,11 @@ interface MangaTrackerProps {
   onRemoveManga: (id: string) => void;
 }
 
-const MangaTracker: React.FC<MangaTrackerProps> = ({ 
-  mangas, 
-  onAddManga, 
-  onUpdateManga, 
-  onRemoveManga 
+const MangaTracker: React.FC<MangaTrackerProps> = ({
+  mangas,
+  onAddManga,
+  onUpdateManga,
+  onRemoveManga
 }) => {
   const [newMangaTitle, setNewMangaTitle] = useState('');
   const [newMangaChapter, setNewMangaChapter] = useState('');
@@ -23,9 +23,9 @@ const MangaTracker: React.FC<MangaTrackerProps> = ({
 
   const handleAddManga = () => {
     if (!newMangaTitle.trim()) return;
-    
+
     const chapter = parseInt(newMangaChapter) || 0;
-    
+
     const newManga: Manga = {
       id: Date.now().toString(),
       title: newMangaTitle.trim(),
@@ -81,6 +81,9 @@ const MangaTracker: React.FC<MangaTrackerProps> = ({
     });
   };
 
+  const completedCount = mangas.filter((manga) => manga.completed).length;
+  const readingCount = mangas.length - completedCount;
+
   const sortedMangas = [...mangas].sort((a, b) => {
     if (a.completed !== b.completed) {
       return a.completed ? 1 : -1;
@@ -90,10 +93,25 @@ const MangaTracker: React.FC<MangaTrackerProps> = ({
 
   return (
     <div className="manga-tracker-container">
-      <div className="manga-card">
+      <div className="manga-card manga-header-card">
         <div className="stats-header">
           <BookOpen size={22} />
           <h2>Rastreador de Mangás</h2>
+        </div>
+
+        <div className="manga-overview">
+          <div className="manga-overview-chip">
+            <span className="manga-overview-label">Total</span>
+            <strong>{mangas.length}</strong>
+          </div>
+          <div className="manga-overview-chip">
+            <span className="manga-overview-label">Lendo</span>
+            <strong>{readingCount}</strong>
+          </div>
+          <div className="manga-overview-chip">
+            <span className="manga-overview-label">Concluídos</span>
+            <strong>{completedCount}</strong>
+          </div>
         </div>
 
         <div className="manga-add-section">
@@ -115,8 +133,8 @@ const MangaTracker: React.FC<MangaTrackerProps> = ({
               className="manga-input-chapter"
               min="0"
             />
-            <button 
-              onClick={handleAddManga} 
+            <button
+              onClick={handleAddManga}
               className="btn-primary"
               disabled={!newMangaTitle.trim()}
             >
@@ -127,9 +145,10 @@ const MangaTracker: React.FC<MangaTrackerProps> = ({
         </div>
       </div>
 
-      <div className="manga-card" style={{ marginTop: '2rem' }}>
-        <div className="stats-header" style={{ border: 'none', paddingBottom: 0, marginBottom: '1rem' }}>
+      <div className="manga-card manga-list-card">
+        <div className="stats-header manga-list-header">
           <h3>Minha Lista ({mangas.length})</h3>
+          <p className="manga-list-subtitle">Clique no título para marcar como concluído.</p>
         </div>
 
         {mangas.length === 0 ? (
@@ -139,8 +158,8 @@ const MangaTracker: React.FC<MangaTrackerProps> = ({
         ) : (
           <div className="manga-list">
             {sortedMangas.map((manga) => (
-              <div 
-                key={manga.id} 
+              <div
+                key={manga.id}
                 className={`manga-item ${manga.completed ? 'completed' : ''}`}
               >
                 {editingId === manga.id ? (
@@ -159,14 +178,14 @@ const MangaTracker: React.FC<MangaTrackerProps> = ({
                       className="manga-edit-chapter"
                       min="0"
                     />
-                    <button 
+                    <button
                       onClick={() => handleSaveEdit(manga.id)}
                       className="manga-action-btn save"
                       title="Salvar"
                     >
                       <Check size={16} />
                     </button>
-                    <button 
+                    <button
                       onClick={handleCancelEdit}
                       className="manga-action-btn cancel"
                       title="Cancelar"
@@ -177,16 +196,20 @@ const MangaTracker: React.FC<MangaTrackerProps> = ({
                 ) : (
                   <>
                     <div className="manga-info">
-                      <div 
-                        className="manga-title"
+                      <div
+                        className="manga-title manga-title-toggle"
                         onClick={() => handleToggleComplete(manga)}
-                        style={{ cursor: 'pointer' }}
-                        title={manga.completed ? "Marcar como não completo" : "Marcar como completo"}
+                        title={manga.completed ? 'Marcar como não completo' : 'Marcar como completo'}
                       >
                         {manga.title}
                       </div>
-                      <div className="manga-chapter-display">
-                        Capítulo: <strong>{manga.currentChapter}</strong>
+                      <div className="manga-meta-row">
+                        <div className="manga-chapter-display">
+                          Capítulo <strong>{manga.currentChapter}</strong>
+                        </div>
+                        <span className={`manga-status-badge ${manga.completed ? 'done' : 'reading'}`}>
+                          {manga.completed ? 'Concluído' : 'Em leitura'}
+                        </span>
                       </div>
                     </div>
 
