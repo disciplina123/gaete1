@@ -4061,6 +4061,16 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
         padding: 2rem;
       }
 
+      .manga-list-card {
+        margin-top: 2rem;
+      }
+
+      .manga-list-header {
+        border: none;
+        padding-bottom: 0;
+        margin-bottom: 1.25rem;
+      }
+
       .manga-add-section {
         margin-top: 1.5rem;
       }
@@ -4106,8 +4116,8 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
       }
 
       .manga-list {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 1rem;
       }
 
@@ -4117,15 +4127,18 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
         border-radius: 10px;
         padding: 1.25rem;
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
-        align-items: center;
+        align-items: stretch;
+        min-height: 150px;
+        gap: 1rem;
         transition: all 0.2s;
       }
 
       .manga-item:hover {
         background: rgba(255, 255, 255, 0.05);
         border-color: var(--primary-color);
-        transform: translateX(5px);
+        transform: translateY(-2px);
       }
 
       .manga-item.completed {
@@ -4164,8 +4177,11 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
 
       .manga-controls {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.65rem;
         align-items: center;
+        justify-content: flex-end;
+        padding-top: 0.75rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
       }
 
       .manga-chapter-btn {
@@ -4236,6 +4252,7 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
         gap: 0.75rem;
         width: 100%;
         align-items: center;
+        flex-wrap: wrap;
       }
 
       .manga-edit-input {
@@ -4269,6 +4286,25 @@ const CustomStyles: React.FC<CustomStylesProps> = ({ primaryColor, backgroundMod
       .manga-edit-chapter:focus {
         outline: none;
         box-shadow: 0 0 0 2px var(--primary-glow);
+      }
+
+      @media (max-width: 768px) {
+        .manga-card {
+          padding: 1.25rem;
+        }
+
+        .manga-input-title {
+          min-width: 100%;
+        }
+
+        .manga-input-chapter,
+        .manga-input-group .btn-primary {
+          width: 100%;
+        }
+
+        .manga-list {
+          grid-template-columns: 1fr;
+        }
       }
       
       /* Exam Tracker Styles */
